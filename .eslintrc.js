@@ -14,5 +14,7 @@ module.exports = {
   ],
   rules: {
     semi: ["error", "always"],
+    "@next/next/no-img-element": "off",
+    "jsx-a11y/anchor-is-valid": "off",
   },
 };
