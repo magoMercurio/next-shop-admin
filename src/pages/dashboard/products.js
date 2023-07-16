@@ -1,41 +1,37 @@
-import endPoints from "@services/api";
-import useFetch from "@hooks/useFetch";
-import { Chart } from "@common/Chart";
+import { useState, Fragment } from "react";
+import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 
-const PRODUCT_LIMIT = 5;
-const PRODUCT_OFFSET = 5;
+/* function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+} */
 
-export default function Dashboard() {
-  const products = useFetch(
-    endPoints.products.getProducts(PRODUCT_LIMIT, PRODUCT_OFFSET),
-  );
-
-  const categoryNames = products?.map((product) => product.category);
-  const categoryCount = categoryNames?.map((category) => category.name) || [];
-
-  const countOccurrences = (array) =>
-    array.reduce((prev, curr) => ((prev[curr] = ++prev[curr] || 1), prev), {});
-
-  const data = {
-    datasets: [
-      {
-        label: "Categories",
-        data: countOccurrences(categoryCount),
-        borderWidth: 2,
-        backgroundColor: [
-          "#FF6384",
-          "#36A2EB",
-          "#50af95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
-      },
-    ],
-  };
+export default function products() {
+  const [products, setProducts] = useState([]);
 
   return (
     <>
-      <Chart className="mb-8 mt-2" chartData={data} />
+      <div className="lg:flex lg:items-center lg:justify-between">
+        <div className="min-w-0 flex-1">
+          <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+            List of Products
+          </h2>
+        </div>
+        <div className="mt-5 flex lg:ml-4 lg:mt-0">
+          <span className="sm:ml-3">
+            <button
+              type="button"
+              className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              <CheckIcon
+                className="-ml-0.5 mr-1.5 h-5 w-5"
+                aria-hidden="true"
+              />
+              Add product
+            </button>
+          </span>
+        </div>
+      </div>
+
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
