@@ -1,12 +1,11 @@
-import { useState, Fragment } from "react";
-import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
-
-/* function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-} */
+import { useState } from "react";
+import { CheckIcon } from "@heroicons/react/20/solid";
+import Modal from "@common/Modal";
+import FormProduct from "@components/FormProduct";
 
 export default function products() {
   const [products, setProducts] = useState([]);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -21,6 +20,7 @@ export default function products() {
             <button
               type="button"
               className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={() => setOpen(true)}
             >
               <CheckIcon
                 className="-ml-0.5 mr-1.5 h-5 w-5"
@@ -127,6 +127,9 @@ export default function products() {
           </div>
         </div>
       </div>
+      <Modal open={open} setOpen={setOpen}>
+        <FormProduct />
+      </Modal>
     </>
   );
 }
