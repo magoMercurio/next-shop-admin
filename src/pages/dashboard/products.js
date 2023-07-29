@@ -3,7 +3,7 @@ import { CheckIcon } from "@heroicons/react/20/solid";
 import Modal from "@common/Modal";
 import FormProduct from "@components/FormProduct";
 
-export default function products() {
+export default function Products() {
   const [products, setProducts] = useState([]);
   const [open, setOpen] = useState(false);
 
