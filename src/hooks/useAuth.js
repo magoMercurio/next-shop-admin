@@ -35,15 +35,23 @@ function useProvideAuth() {
     );
     if (access_token) {
       const token = access_token.access_token;
-      Cookie.set("token", token, { expires: 5 });
+      Cookie.set("token", token, { expires: 20 });
       axios.defaults.headers.Authorization = `Bearer ${token}`;
       const { data: user } = await axios.get(endPoints.auth.profile);
       setUser(user);
     }
   };
 
+  const logout = () => {
+    Cookie.remove("token");
+    setUser(null);
+    delete axios.defaults.headers.Authorization;
+    window.location.href = "/login";
+  };
+
   return {
     user,
     signIn,
+    logout,
   };
 }
